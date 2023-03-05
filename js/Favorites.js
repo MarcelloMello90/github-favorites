@@ -20,8 +20,7 @@ export class Favorites{
   //função assíncrona - promessa
   async add(username){
     try{
-
-      const userExists = this.entries.find(entry => entry.login === username)
+      const userExists = this.entries.find(entry => entry.login.toLowerCase() === username.toLowerCase())
 
       if(userExists){
         throw new Error("Usuário já cadastrado")
@@ -31,7 +30,7 @@ export class Favorites{
       const user = await GithubUser.search(username)
 
       if(user.name === undefined){
-        throw new Error('Usuário não encontrado!')
+        throw new Error('Usuário não encontrado!') 
       }
 
       this.entries = [user, ...this.entries]
